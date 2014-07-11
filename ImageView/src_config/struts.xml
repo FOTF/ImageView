@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 该属性指定Struts 2中的action由Spring容器创 建 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.url.includeParams" value="all" />
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	<constant name="struts.multipart.maxSize" value="52428800" />
+	<package name="default" namespace="/" extends="struts-default">
+		<action name="imageview" class="com.hzkd.action.ImageViewAction">
+			<result>/main.jsp</result>
+		</action>
+		<action name="readimage" class="com.hzkd.action.ReadImageStreamAction"/>
+		
+		<!-- <action name="uploadify" class="com.hzkd.action.UploadifyAction"/> -->
+	</package>
+	
+	<package name="upload" namespace="/upload" extends="json-default">
+        <action name="uploadify" class="com.hzkd.action.UploadifyAction">
+        	<result type="json">
+			</result>
+        </action>
+      </package>
+</struts>
