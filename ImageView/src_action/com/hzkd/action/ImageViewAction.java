@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hzkd.bean.ImageView;
+import com.hzkd.bean.Page;
 import com.hzkd.util.ImageInfroLoad;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -11,15 +12,22 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ImageViewAction extends ActionSupport{
 	
 	private List<ImageView> images = new ArrayList<ImageView>();;
-	private int currentPage = 1;
+	private Integer currentPage = 1;
 	private int number;
 	
 	public String execute(){
+		
 		currentPage = currentPage + number;
 		if(currentPage <= 0){
 			currentPage = 1;
 		}
-		images = ImageInfroLoad.loadSomeImage(currentPage);
+		
+		Page page = new Page(currentPage);
+		
+		images = ImageInfroLoad.loadSomeImage(page);
+		
+		currentPage = page.getCurrentPage();
+		
 		return SUCCESS;
 	}
 	

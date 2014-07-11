@@ -52,7 +52,7 @@ ul{
 				<input type="file" name="files" id="files" /> 
 				<p>  
                 	<a href="javascript:$('#files').uploadify('upload')">开始上传</a>   
-                	<a href="javascript:$('#files').uplaodify('cancel','*')">取消上传</a>  
+                	<a href="javascript:$('#files').uplaodify('cancel','*')">取消上传</a>
             	</p> 
             	</form>
 			<span class="imagesControl icon-arrow-left" id="previous"></span> 
@@ -80,26 +80,23 @@ ul{
 	<script>
 	$(function() {
 		$("#files").uploadify({
-			'multi': false,
+			'multi': true,
             'auto':false,
        	    'fileObjName' : 'files',
             'swf': 'images/uploadify.swf',
             'uploader': '<%=request.getContextPath()%>/upload/uploadify.action',
-            'multi': false,
-            'overrideEvents' : ['onUploadProgress'],  
+            'progressData': 'percentage',
             'fileTypeDesc':'支持的格式：',
-            'formData': {'ctrlid' : 1},
             //允许上传的文件后缀
-            'fileTypeExts':'*.xml, *.gz, *.zip',
+            'fileTypeExts':'*.xml;*.gz;*.zip;*.rar',
             //上传文件的大小限制
-            'fileSizeLimit':'1MB',
+            'fileSizeLimit':'1000MB',
             //  'buttonImage':'upbutton.gif',
             //浏览按钮的宽度
             'width':'100',
             //浏览按钮的高度
             'height':'32',
             //上传数量 
-            'queueSizeLimit' : 1,
             'buttonText'     : '上传文件'
 	    });
      $('#gallery-container').sGallery({

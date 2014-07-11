@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.hzkd.bean.ImageView;
+import com.hzkd.bean.Page;
 
 public class ImageInfroLoad {
 	
@@ -18,19 +19,19 @@ public class ImageInfroLoad {
 	
 	static{
 		try {
+			log.info("åˆå§‹åŒ–å›¾ç‰‡ä¿¡æ¯å·¥å…·ç±»ã€‚ã€‚ã€‚");
 			PropertiesParser pp = new PropertiesParser("config.properties");
 			imagesPath = pp.getInfoFromConfiguration("imagesPath");
 			LOADNUMBER = pp.getInfoFromConfigurationInt("LOADNUMBER");
-			log.info("¼ÓÔØÅäÖÃÎÄ¼ş¡£¡£¡£");
 		} catch (Exception e) {
-			log.error("¼ÓÔØÅäÖÃÎÄ¼şÊ§°Ü", e);
+			log.error("åˆå§‹åŒ–å›¾ç‰‡ä¿¡æ¯å·¥å…·ç±»å¼‚å¸¸", e);
 		}
 	}
 	
 	public static void load(String imagesPath){
 		ImageInfroLoad.imagesPath = imagesPath;
 		
-		log.info("¼ÓÔØÍ¼Æ¬ĞÅÏ¢£¬Í¼Æ¬¼ÓÔØÂ·¾¶Îª£º" + ImageInfroLoad.imagesPath);
+		log.info("å›¾ç‰‡è½½å…¥è·¯å¾„æ˜¯ï¼š" + ImageInfroLoad.imagesPath);
 		
 		File imagesFile = new File(imagesPath);
 		File[] files = imagesFile.listFiles();
@@ -47,7 +48,7 @@ public class ImageInfroLoad {
 	}
 	
 	/**
-	 * Ïû³ıÀ©Õ¹Ãû
+	 * å»é™¤æ‰©å±•å
 	 * @param filename
 	 * @return
 	 */
@@ -62,29 +63,29 @@ public class ImageInfroLoad {
 	} 
 	
 	public static void reload(){
-		log.info("ÖØĞÂÔØÈëÍ¼Æ¬ĞÅÏ¢£¬Í¼Æ¬¼ÓÔØÂ·¾¶Îª£º" + ImageInfroLoad.imagesPath);
+		log.info("é‡æ–°è½½å…¥å›¾ç‰‡ä¿¡æ¯ï¼Œè½½å…¥è·¯å¾„ä¸ºï¼š" + ImageInfroLoad.imagesPath);
 		load(ImageInfroLoad.imagesPath);
 	}
 	
 	
-	public static List<ImageView> loadSomeImage(int currentPage){
+	public static List<ImageView> loadSomeImage(Page page){
 		if(allImages.size() == 0){
 			reload();
 		}
 		int MAXPAGE = (allImages.size() / LOADNUMBER) + 1;
 		
-		if(currentPage > MAXPAGE){
-			currentPage = MAXPAGE;
+		if(page.getCurrentPage() > MAXPAGE){
+			page.setCurrentPage(MAXPAGE);
 		}
 		
-		int startIndex = (currentPage - 1) * LOADNUMBER;
-		int endIndex = currentPage * LOADNUMBER;
+		int startIndex = (page.getCurrentPage() - 1) * LOADNUMBER;
+		int endIndex = page.getCurrentPage() * LOADNUMBER;
 		
 		if(endIndex > allImages.size()){
 			endIndex = allImages.size();
 		}
 		
-		log.info("ÔØÈë²¿·ÖÍ¼Æ¬ĞÅÏ¢¡£¡£¡£¡£ ¿ªÊ¼×ø±ê£º" + startIndex + ", ½áÊø×ø±êÎª£º" + endIndex);
+		log.info("æˆªå–å›¾ç‰‡åˆ—è¡¨ï¼Œå¼€å§‹åæ ‡ä¸ºï¼š" + startIndex + ", ç»“æŸåæ ‡ä¸ºï¼š" + endIndex);
 		return allImages.subList(startIndex, endIndex);
 	}
 
